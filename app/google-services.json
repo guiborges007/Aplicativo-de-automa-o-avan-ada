@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "856119909450",
+    "project_id": "exemplogps-d986e",
+    "storage_bucket": "exemplogps-d986e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:856119909450:android:d565a7b49e387b70b59ab3",
+        "android_client_info": {
+          "package_name": "br.com.guilhermeborges.exemplogps"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlyaOSqmOrgdvOZhLG2LKRz2TcJ8aOguk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
