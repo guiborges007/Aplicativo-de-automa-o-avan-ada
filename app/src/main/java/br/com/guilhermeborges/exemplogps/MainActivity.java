@@ -4,18 +4,13 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -35,7 +30,6 @@ import br.com.guilhermeborges.Regiao;
 import br.com.guilhermeborges.RegiaoRestrita;
 import br.com.guilhermeborges.SubRegiao;
 
-
 // Essa é a classe principal do projeto, responsável por manipular os elementos da UI e também lançar as Threads usadas.
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -54,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listaRegioes = new LinkedList<>(); // Cria uma Fila de objetos do tipo Região
+        listaRegioes = new LinkedList<>(); // Cria uma Fila de strings (criptografadas)
         bancoDeDados = FirebaseFirestore.getInstance(); // Cria uma única instância do FirebaseFirestore, que é o ponto central para interagir com o Cloud Firestore
 
         // Este trecho de código inicializa e configura um SupportMapFragmentno Android, possibilitando a incorporação do mapa no aplicativo.

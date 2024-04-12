@@ -1,18 +1,13 @@
 package br.com.guilhermeborges.exemplogps;
 
 import java.util.Queue;
-import java.util.concurrent.BlockingDeque;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Semaphore;
 
-import br.com.guilhermeborges.Regiao;
-
-// Essa classe é uma implementação de Thread que adiciona uma região a uma fila ( Queue<Regiao>)
+// Essa classe é uma implementação de Thread que adiciona uma região criptografada a uma fila ( Queue<Srting>)
 // de forma thread-safe. Ela utiliza um Semaphorepara controlar o acesso à fila, garantindo que
 // apenas um tópico possa adicionar uma região à fila por vez. Isso é crucial para evitar condições
 // de execução e garantir a integridade dos dados na fila.
 public class AdicionaNaFila extends Thread {
-
     private Queue<String> listaRegioes; // Fila para armazenar as regiões
     private Semaphore semaphore; // Semáforo para controlar o acesso à fila
     private String regiaoEncriptada; // Região candidata a ser adicionada à fila
@@ -24,17 +19,17 @@ public class AdicionaNaFila extends Thread {
         this.regiaoEncriptada = regiaoEncriptada;
     }
 
+    // Método run
     @Override
     public void run() {
         addRegiao();
     }
 
-
     // Método para adicionar uma região à fila
     public void addRegiao() {
         try {
             semaphore.acquire(); // Aguarda até que um permit esteja disponível
-            listaRegioes.add(regiaoEncriptada);
+            listaRegioes.add(regiaoEncriptada); // Adicona refião encripitada
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {

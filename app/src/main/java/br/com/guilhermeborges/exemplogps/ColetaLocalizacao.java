@@ -34,7 +34,6 @@ public class ColetaLocalizacao implements LocationListener {
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
     }
 
-
     // Método para iniciar a atualização da localização.
     public void startLocationUpdates() {
         try {
@@ -48,7 +47,6 @@ public class ColetaLocalizacao implements LocationListener {
             e.printStackTrace();
         }
     }
-
 
     // Método chamado quando a localização do dispositivo muda.
     @Override

@@ -14,7 +14,7 @@ public class RegiaoRestrita extends Regiao {
     // Construtor que inicializa a região restrita com nome, coordenadas, usuário, timestamp e indicação de restrição.
     public RegiaoRestrita(String name, double latitude, double longitude, int usuario, long timestamp, boolean restrita){
         super(name, latitude, longitude, usuario, timestamp);
-        this.regiaoPrincipal = null;
+        this.regiaoPrincipal = null; // Inicia como null, mas é modificada quando as Threads consultaLista e consultaDb são encerradas (devem encontrar a região principal mais próxima)
         this.restrita = restrita;
     }
 
@@ -26,7 +26,9 @@ public class RegiaoRestrita extends Regiao {
         return results[0];
     }
 
-    // Métodos getter e setter para acessar e modificar a região principal associada e o estado de restrição.//
+    //-------------------------------------------------------------------------------------------------------//
+    // Métodos getter e setter para acessar e modificar a região principal associada e o estado de restrição //
+    //-------------------------------------------------------------------------------------------------------//
 
     public Regiao getRegiaoPrincipal(){return regiaoPrincipal;}
     public boolean getRestrita(){return restrita;}

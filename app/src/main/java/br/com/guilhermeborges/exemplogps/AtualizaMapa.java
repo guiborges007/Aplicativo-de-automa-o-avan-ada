@@ -1,7 +1,6 @@
 package br.com.guilhermeborges.exemplogps;
 
 import static android.content.ContentValues.TAG;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Handler;
@@ -21,7 +20,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
 import br.com.guilhermeborges.ConversorJSON;
 import br.com.guilhermeborges.Criptografia;
 import br.com.guilhermeborges.Regiao;
@@ -33,7 +31,8 @@ import br.com.guilhermeborges.SubRegiao;
 // mensagens para o thread principal (UI thread) do Android, permitindo que a atualização da
 // posição do marcador e a recentralização do mapa para a nova localização sejam realizadas
 // de forma assíncrona e thread-safe. Isso é crucial para evitar o bloqueio da UI enquanto a
-// localização é atualizada, mantendo um aplicativo responsivo.
+// localização é atualizada, mantendo um aplicativo responsivo. A classe também é responsável por
+// inserir e controlar ícones e simbolos no mapa.
 public class AtualizaMapa extends Thread {
     private Handler handler;
     private static GoogleMap mMap;
@@ -107,10 +106,11 @@ public class AtualizaMapa extends Thread {
         }
     }
 
-
+                        //----------------------------------------//
                         // METODOS PARA TRATAR MARCADORES NO MAPA //
+                        //----------------------------------------//
 
-    // Carrega os marcadores de regiões salvas do DB
+    // Carrega os marcadores de regiões salvas do DB (quando o app é iniciado, as regiões salvas no DB precisam aparecer no mapa)
     public static void carregaMarcadoresDeRegioesSalvasNoDB(){
         bancoDeDados.collection("Regiões").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -188,6 +188,7 @@ public class AtualizaMapa extends Thread {
         mMap.addCircle(circleOptions); // Adicionando o círculo ao GoogleMap
     }
 
+    // O método de reconstruir obejto também é necessário aqui, uma vez que é necessário recuperar dados do banco de dados e reconstruir objetos
     public static Regiao reconstrucaoDeObjeto(String regiaoEncripitada){
 
         Criptografia criptografia = new Criptografia(contexto, regiaoEncripitada, false);

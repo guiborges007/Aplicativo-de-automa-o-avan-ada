@@ -9,11 +9,15 @@ import java.io.Serializable;
 // para armazenar o estado de um objeto Regiao em um arquivo ou banco de dados e recuperá-lo posteriormente.
 public class Regiao implements Serializable{
 
+    // Atributos do tipo protected, para que possam ser visíveis também nas subClasses //
+
     protected String name;
     protected double latitude;
     protected double longitude;
     protected int usuario;
     protected long timestamp;
+
+    // Contrutor vazio usada na reconstrução de objetos
     public Regiao(){}
 
     // Construtor da classe
@@ -25,11 +29,13 @@ public class Regiao implements Serializable{
         this.timestamp = timestamp;
     }
 
+    // Método para calcular distância entre dois pontos no mapa
     public double calcularDistancia(double lat1, double lon1, double lat2, double lon2) {
         float[] results = new float[3];
         Location.distanceBetween(lat1, lon1, lat2, lon2, results);
         return results[0];
     }
+
 
                  // MÉTODOS GETS //
 
@@ -43,14 +49,16 @@ public class Regiao implements Serializable{
     public double getLongitude() { return longitude; }
 
     // Método getter para obter o número de usuário
-    public int getUsuario() { return usuario; }/////////////
+    public int getUsuario() { return usuario; }
 
     // Método getter para obter o timeStamp
     public long getTimestamp() { return timestamp; }
+
+    // Método getter para obter a região principal
     public Regiao getRegiaoPrincipal(){return null;}
 
 
-    // MÉTODOS SETS //
+              // MÉTODOS SETS //
 
     // Método setter para atualizar o nome da região
     public void setNome(String name) { this.name = name; }
@@ -67,6 +75,7 @@ public class Regiao implements Serializable{
     // Método setter para atualizar o timeStamp
     public void setTimestamp(long timestamp) { this.timestamp = timestamp; }
 
+    // Método setter para atualizar a regiao principal
     public void setRegiaoPrincipal(Regiao regiaoMaisProxima){}
 }
 

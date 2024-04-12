@@ -44,7 +44,7 @@ public class TransferenciaDados extends Thread{
                 String regiaoEnriptada = listaDeRegioes.poll();
 
                 Map<String, Object> dados = new HashMap<>(); // Cria um mapa para armazenar os dados
-                dados.put("regiao", regiaoEnriptada); // Adiciona a string ao mapa
+                dados.put("regiao", regiaoEnriptada); // Adiciona a string encriptada ao mapa
 
                 regioesRef.add(dados) // Adiciona o mapa à coleção "Regiões"
                         .addOnSuccessListener(documentReference -> {

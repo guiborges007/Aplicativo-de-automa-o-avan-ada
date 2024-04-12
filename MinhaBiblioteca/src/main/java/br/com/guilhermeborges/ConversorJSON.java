@@ -58,6 +58,7 @@ public class ConversorJSON extends Thread {
         }
     }
 
+    // Retorna o resultado da conversão
     public Object getResultado() {
         if (regiaoParaJson) {
             return json;
@@ -65,7 +66,6 @@ public class ConversorJSON extends Thread {
             return regiao;
         }
     }
-
 
     // Retorna o tipo dinâmico da região reconstruída
     public String getTipoDeRegiao(){

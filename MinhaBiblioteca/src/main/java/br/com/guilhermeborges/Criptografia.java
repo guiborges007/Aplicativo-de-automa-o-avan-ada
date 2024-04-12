@@ -12,7 +12,11 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-// Classe Criptografia que estende Thread para realizar operações de criptografia e descriptografia de forma assíncrona.
+// Classe projetada para realizar operações de criptografia e descrição de forma assíncrona. Ela utiliza o algoritmo
+// AES (Advanced Encryption Standard) para transformar dados em texto legível em texto cifrado e vice-versa, garantindo
+// a confidencialidade dos dados. A classe gerencia a chave secreta usada para criptografia e descrição, armazenando-a
+// de forma persistente no dispositivo e recuperando-a conforme necessário. Além disso, ela permite a execução de
+// operações de criptografia e descrição em um thread separado, evitando bloquear a interface do usuário
 public class Criptografia extends Thread {
 
     // Constantes para o nome do arquivo onde a chave secreta será armazenada e o tamanho da chave em bits.
@@ -53,30 +57,33 @@ public class Criptografia extends Thread {
     // Método público para criptografar a string JSON.
     public String criptografar() {
         try {
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-            byte[] iv = new byte[16]; // Vetor de inicialização de 16 bytes para CBC
-            cipher.init(Cipher.ENCRYPT_MODE, chaveSecreta, new IvParameterSpec(iv));
-            byte[] bytesCriptografados = cipher.doFinal(jsonComum.getBytes());
-            return Base64.encodeToString(bytesCriptografados, Base64.DEFAULT);
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");// Obtém uma instância do Cipher para o algoritmo AES/CBC/PKCS5Padding.
+            byte[] iv = new byte[16];// Cria um vetor de inicialização (IV) de 16 bytes para o modo CBC.
+            cipher.init(Cipher.ENCRYPT_MODE, chaveSecreta, new IvParameterSpec(iv));// Inicializa o Cipher no modo de criptografia com a chave secreta e o IV.
+            byte[] bytesCriptografados = cipher.doFinal(jsonComum.getBytes());// Criptografa a string JSON em bytes e retorna os bytes criptografados.
+            return Base64.encodeToString(bytesCriptografados, Base64.DEFAULT);// Converte os bytes criptografados para uma string Base64 para facilitar o armazenamento e transmissão.
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            e.printStackTrace();// Imprime a pilha de rastreamento da exceção em caso de erro.
+            return null; // Retorna null em caso de falha na criptografia.
         }
     }
+
 
     // Método público para descriptografar a string JSON criptografada.
     public String descriptografar() {
         try {
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding"); // Obtém uma instância do Cipher com o algoritmo AES em modo CBC com padding PKCS5.
+            // Cria um vetor de inicialização (IV) de 16 bytes, necessário para o modo CBC.
             byte[] iv = new byte[16]; // O mesmo vetor de inicialização usado para criptografia
-            cipher.init(Cipher.DECRYPT_MODE, chaveSecreta, new IvParameterSpec(iv));
-            byte[] bytesDescriptografados = cipher.doFinal(Base64.decode(jsonCriptografado, Base64.DEFAULT));
-            return new String(bytesDescriptografados);
+            cipher.init(Cipher.DECRYPT_MODE, chaveSecreta, new IvParameterSpec(iv)); // Inicializa o Cipher no modo de descriptografia com a chave secreta e o IV.
+            byte[] bytesDescriptografados = cipher.doFinal(Base64.decode(jsonCriptografado, Base64.DEFAULT)); // Decodifica a string JSON criptografada de Base64 para bytes e descriptografa.
+            return new String(bytesDescriptografados); // Converte os bytes descriptografados de volta para uma string e retorna.
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Em caso de erro, imprime a pilha de rastreamento e retorna null.
             return null;
         }
     }
+
 
     // Método para recuperar o resultado da operação de criptografia ou descriptografia.
     public String getResultado() {
