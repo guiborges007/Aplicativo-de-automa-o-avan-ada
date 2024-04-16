@@ -140,6 +140,7 @@ public class ConsultaDB extends Thread{
             // Trata exceções de execução ou interrupção
         }
     }
+
 }
 
 

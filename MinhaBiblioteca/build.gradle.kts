@@ -1,6 +1,8 @@
 plugins {
-    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.androidLibrary )
+    id("maven-publish")
 }
+
 
 android {
     namespace = "br.com.guilhermeborges.MinhaBiblioteca"
@@ -38,6 +40,31 @@ dependencies {
     implementation("com.google.android.gms:play-services-maps:18.2.0@aar")
     implementation ("com.google.code.gson:gson:2.8.9") // Use a versão mais recente disponível
     implementation ("com.google.android.material:material:1.4.0")
-
-
 }
+
+
+publishing {
+    publications {
+        register("TratamentoDeRegioesECripitografia", MavenPublication::class) {
+            groupId = "br.com.guilhermeborges"
+            artifactId = "regioes_e_criptografia"
+            version = "1.0"
+            // Aqui você deve especificar o artefato que deseja publicar.
+            // Por exemplo, se estiver publicando um AAR, você pode fazer algo assim:
+            artifact("$buildDir/outputs/aar/MinhaBiblioteca-debug.aar")
+        }
+    }
+
+    repositories {
+        maven {
+            name = "GithubPackages"
+            url = uri("https://maven.pkg.github.com/guiborges007/Aplicativo-de-automacao-avancada")
+                    credentials {
+                username = project.findProperty("usuario") as String? ?: ""
+                password = project.findProperty("token") as String? ?: ""
+            }
+        }
+    }
+}
+
+
