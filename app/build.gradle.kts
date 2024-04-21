@@ -39,12 +39,12 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation("com.google.android.gms:play-services-maps:18.2.0")
     implementation("com.google.maps.android:android-maps-utils:3.8.0")
-    implementation(project(":MinhaBiblioteca"))
+    //implementation(project(":MinhaBiblioteca"))   implementação local removida após a implementação da biblioteca no Git
+    implementation("br.com.guilhermeborges:regioes_e_criptografia:1.0")
     implementation(libs.navigation.runtime)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-
     implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-firestore")
