@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -47,6 +48,29 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //----------------------------RECONCILIAÇÃO DE DADOS_____________________________________//
+
+        double[] y = new double[] { 33441.36667, 31465.36667, 29637.66667, 27852.56667, 25825.46667}; //vetor de medidas
+
+        double[] v = new double[] { 3497.024513, 3497.024513, 3427.605401, 3425.283675, 13378.44903}; //vetor de desvio padrões
+
+        double[][] A = new double[][] {  // Matriz de incidência
+              {-1, 1, 0, 0, 0},
+              {0, -1, 1, 0, 0},
+              {0, 0, -1, 1, 0},
+              {0, 0, 0, -1, 1}
+        };
+
+        Reconciliacao rec = new Reconciliacao(y, v, A);
+        double[] y_reconciled = rec.getReconciledFlow();
+
+        // Exibir o resultado reconciliado no log
+        String TAG = "RouteAnalysis";
+        Log.d(TAG, "Dados Reconciliados:");
+        for (int i = 0; i < y_reconciled.length; i++) {
+            Log.d(TAG, "y^" + (i + 1) + "_reconciled: " + y_reconciled[i]);
+        }
 
         listaRegioes = new LinkedList<>(); // Cria uma Fila de strings (criptografadas)
         bancoDeDados = FirebaseFirestore.getInstance(); // Cria uma única instância do FirebaseFirestore, que é o ponto central para interagir com o Cloud Firestore
@@ -161,6 +185,23 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     // Chama método para remover os marcadores do tipo região na fila e atualizar com marcadores de regiões salvas no DB
                     AtualizaMapa.atualizaMarcadores_transferenciaParaDB();
                 }
+            }
+        });
+
+        // Método exexcutado quando o evento click no botão "Salvar no DB" acontece
+        Button TimeStamp = findViewById(R.id.TimeStamp);
+        TimeStamp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // Obtém o timestamp atual em milissegundos
+                long timestamp = System.currentTimeMillis();
+
+                // Formata o timestamp como uma string
+                String formattedTimestamp = Long.toString(timestamp);
+
+                // Registra a mensagem no Logcat com o timestamp
+                Log.i("Timestamp", "Timestamp: " + formattedTimestamp);
             }
         });
 
@@ -351,7 +392,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         snackbarView.setLayoutParams(params);
         snackbar.show();
     }
-
 }
 
 

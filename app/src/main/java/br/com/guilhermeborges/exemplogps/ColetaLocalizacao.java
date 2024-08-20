@@ -5,8 +5,11 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import com.google.android.gms.maps.GoogleMap;
+
+import java.time.Instant;
 
 // Essa classe é responsável por coletar e atualizar a localização do dispositivo usando
 // o GPS e exibir essas coordenadas em TextView e em um mapa do Google Maps. Ela implementou
